@@ -25,6 +25,8 @@ mongoose
 
 // Middleware
 app.set("view engine", "ejs");
+app.set("trust proxy", 1);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -33,9 +35,9 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: process.env.MONGODB_URI || "mongodb://localhost:27017/GoogleDB",
+      mongoUrl: mongoDB,
     }),
-    cookie: { secure: false },
+    cookie: { secure: process.env.NODE_ENV === "production" },
   })
 );
 
