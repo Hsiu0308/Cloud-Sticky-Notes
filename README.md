@@ -8,7 +8,7 @@
 
 ## 🔗 線上體驗 (Live Demo)
 
-**點擊這裡開始使用：** [https://cloud-sticky-notes.onrender.com](https://您的-RENDER-網址.onrender.com)
+**點擊這裡開始使用：** [https://cloud-sticky-notes.onrender.com](https://cloud-sticky-notes.onrender.com)
 
 _(註：由於使用免費雲端服務，第一次開啟可能需要等待約 30-50 秒喚醒伺服器，請耐心等候。)_
 
