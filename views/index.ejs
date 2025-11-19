@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include ("partials/header") %>
+    <title>雲端便利貼 - 首頁</title>
+    <style>
+      /* 讓首頁的背景有點層次感 */
+      .hero-section {
+        background-color: #f8f9fa; /* 淺灰背景 */
+        border-bottom: 5px solid #fdfd86; /* 底部加一條便利貼黃色的線 */
+      }
+      .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      .btn-cta {
+        background-color: #ffc107; /* 醒目的黃色 */
+        color: #333;
+        font-weight: bold;
+        border: none;
+        padding: 10px 30px;
+        transition: transform 0.2s;
+      }
+      .btn-cta:hover {
+        background-color: #ffca2c;
+        transform: scale(1.05); /* 滑鼠移上去稍微放大 */
+        color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include ("partials/nav") %>
+
+    <div class="hero-section p-4 p-lg-5 mb-4 rounded-3 text-center">
+      <div class="container-fluid py-3 py-lg-5">
+        <div style="font-size: 4rem; margin-bottom: 1rem">📝✨</div>
+
+        <h1 class="fs-1 display-lg-4 fw-bold text-dark">
+          隨手記錄，您的雲端便利貼
+        </h1>
+        <p class="col-md-8 fs-5 fs-lg-4 mx-auto text-muted mt-3">
+          不再擔心靈感溜走。無論是待辦事項、突發奇想，還是心情隨筆，
+          這裡都是您最安全、最私密的思緒空間。
+        </p>
+
+        <div class="mt-4">
+          <% if (!user) { %>
+          <a
+            class="btn btn-cta btn-lg shadow-sm"
+            href="/auth/signup"
+            role="button"
+          >
+            立即免費註冊 🚀
+          </a>
+          <div class="mt-3 text-muted">
+            <small>或是 <a href="/auth/login">登入帳號</a></small>
+          </div>
+          <% } else { %>
+          <p class="fs-5 text-success">歡迎回來，<%= user.name %>！</p>
+          <a class="btn btn-cta btn-lg shadow-sm" href="/profile" role="button">
+            前往我的便利貼牆 🏃‍♂️
+          </a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mb-5">
+      <div class="row align-items-md-stretch">
+        <div class="col-md-4 mb-3">
+          <div
+            class="h-100 p-4 bg-white border rounded-3 shadow-sm text-center"
+          >
+            <div class="feature-icon">☁️</div>
+            <h2>雲端同步</h2>
+            <p>
+              您的所有筆記都安全地儲存在雲端。無論換電腦還是用手機，隨時隨地都能存取您的重要內容。
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <div
+            class="h-100 p-4 bg-white border rounded-3 shadow-sm text-center"
+          >
+            <div class="feature-icon">🔒</div>
+            <h2>隱私保護</h2>
+            <p>
+              支援 Google
+              快速登入與本地帳號加密保護。除了您自己，沒有人能看見您的便利貼內容。
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <div
+            class="h-100 p-4 bg-white border rounded-3 shadow-sm text-center"
+          >
+            <div class="feature-icon">💡</div>
+            <h2>簡單直覺</h2>
+            <p>
+              拋棄複雜的功能，回歸最純粹的紀錄體驗。就像在牆上貼便條紙一樣簡單、直覺、無負擔。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="container text-center text-muted py-3 mt-5 border-top">
+      &copy; 2025 雲端便利貼 (MemoWall). Designed by Hensel Huang.
+    </footer>
+  </body>
+</html>

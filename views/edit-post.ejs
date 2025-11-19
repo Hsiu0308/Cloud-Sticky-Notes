@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include ("partials/header") %>
+    <title>編輯便利貼</title>
+    <style>
+      .color-option {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        position: relative;
+      }
+      input[type="radio"]:checked + .color-option {
+        border: 2px solid #333;
+        transform: scale(1.1);
+      }
+      input[type="radio"] {
+        display: none;
+      }
+
+      .bg-yellow {
+        background-color: #fdfd86;
+      }
+      .bg-blue {
+        background-color: #a6dcef;
+      }
+      .bg-green {
+        background-color: #caf0b6;
+      }
+      .bg-pink {
+        background-color: #ffccdb;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include ("partials/nav") %>
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card shadow p-4">
+            <h3 class="mb-4 fw-bold">✏️ 編輯便利貼</h3>
+            <%- include ("partials/message") %>
+
+            <form action="/profile/post/edit/<%= post._id %>" method="POST">
+              <div class="mb-3">
+                <label class="form-label fw-bold">標題</label>
+                <input
+                  name="title"
+                  type="text"
+                  class="form-control"
+                  value="<%= post.title %>"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">內容</label>
+                <textarea class="form-control" name="content" rows="5" required>
+<%= post.content %></textarea
+                >
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label fw-bold d-block">選擇顏色</label>
+
+                <label>
+                  <input type="radio" name="color" value="yellow" <%= post.color
+                  === 'yellow' ? 'checked' : '' %>>
+                  <span class="color-option bg-yellow" title="經典黃"></span>
+                </label>
+
+                <label>
+                  <input type="radio" name="color" value="blue" <%= post.color
+                  === 'blue' ? 'checked' : '' %>>
+                  <span class="color-option bg-blue" title="天空藍"></span>
+                </label>
+
+                <label>
+                  <input type="radio" name="color" value="green" <%= post.color
+                  === 'green' ? 'checked' : '' %>>
+                  <span class="color-option bg-green" title="薄荷綠"></span>
+                </label>
+
+                <label>
+                  <input type="radio" name="color" value="pink" <%= post.color
+                  === 'pink' ? 'checked' : '' %>>
+                  <span class="color-option bg-pink" title="櫻花粉"></span>
+                </label>
+              </div>
+
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg">
+                  儲存修改 ✨
+                </button>
+                <a href="/profile" class="btn btn-outline-secondary">取消</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

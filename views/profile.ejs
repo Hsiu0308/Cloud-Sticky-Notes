@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include ("partials/header") %>
+    <title>我的便利貼牆</title>
+    <style>
+      body {
+        background-color: #e9ecef;
+      }
+
+      /* 個人資訊區塊 */
+      section.user-info {
+        background-color: white;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      .flex-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .user-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      /* --- 便利貼樣式 --- */
+      .posts-container {
+        padding: 2rem;
+      }
+
+      .sticky-note {
+        background-color: #fdfd86;
+        width: 100%;
+        min-height: 250px;
+        padding: 1.5rem;
+        position: relative;
+        box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.2);
+        transition: transform 0.15s linear;
+        font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
+        transform: rotate(-1deg);
+      }
+
+      .col-md-4:nth-child(even) .sticky-note {
+        transform: rotate(1deg);
+        background-color: #ffff88;
+        position: relative;
+        top: 5px;
+      }
+
+      .sticky-note:hover {
+        transform: scale(1.05);
+        box-shadow: 10px 10px 12px rgba(33, 33, 33, 0.3);
+        z-index: 10;
+        cursor: pointer;
+      }
+
+      .note-title {
+        font-weight: bold;
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+        border-bottom: 2px dashed rgba(0, 0, 0, 0.1);
+        padding-bottom: 0.5rem;
+        color: #333;
+      }
+
+      .note-content {
+        font-size: 1.1rem;
+        color: #555;
+        height: 120px;
+        overflow-y: auto;
+        margin-bottom: 1rem;
+
+        white-space: pre-wrap;
+      }
+
+      .note-footer {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        left: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      .note-date {
+        font-size: 0.8rem;
+        color: #888;
+      }
+
+      .btn-delete {
+        background: none;
+        border: none;
+        color: #d9534f;
+        font-weight: bold;
+        font-size: 0.9rem;
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: 0.2s;
+      }
+      .btn-delete:hover {
+        background-color: rgba(217, 83, 79, 0.1);
+        text-decoration: none;
+      }
+      .sticky-note.yellow {
+        background-color: #fdfd86;
+      }
+      .sticky-note.blue {
+        background-color: #a6dcef;
+      }
+      .sticky-note.green {
+        background-color: #caf0b6;
+      }
+      .sticky-note.pink {
+        background-color: #ffccdb;
+      }
+
+      /* 偶數變體 (讓顏色稍微深一點或淺一點增加層次，這裡簡化處理直接沿用) */
+      .col-md-4:nth-child(even) .sticky-note.yellow {
+        background-color: #ffff99;
+      }
+
+      /* 按鈕區樣式 */
+      .note-actions {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        left: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+      .action-btn {
+        font-size: 0.9rem;
+        text-decoration: none;
+        padding: 2px 8px;
+        border-radius: 4px;
+        transition: 0.2s;
+      }
+      .edit-btn {
+        color: #555;
+      }
+      .edit-btn:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        color: #000;
+      }
+      .delete-btn {
+        color: #d9534f;
+      }
+      .delete-btn:hover {
+        background-color: rgba(217, 83, 79, 0.1);
+      }
+      @media (max-width: 768px) {
+        .posts-container {
+          padding: 1rem;
+        }
+        .sticky-note {
+          min-height: 200px;
+          transform: rotate(0deg) !important;
+        }
+        .col-md-4:nth-child(even) .sticky-note {
+          transform: rotate(0deg) !important;
+          top: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <%- include ("partials/nav") %>
+
+    <section class="user-info container mt-4 rounded">
+      <div class="flex-container">
+        <img
+          class="user-avatar"
+          src="<%= user.thumbnail || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' %>"
+          alt="Avatar"
+        />
+        <div>
+          <h2 class="mb-0"><%= user.name %> 的便利貼牆</h2>
+          <small class="text-muted">已張貼 <%= posts.length %> 張便利貼</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="posts-container container">
+      <div class="row">
+        <% for (let i = 0; i < posts.length; i++) { %>
+        <div class="col-12 col-sm-6 col-lg-4 mb-4 mb-md-5">
+          <div class="sticky-note <%= posts[i].color || 'yellow' %>">
+            <div class="note-title"><%= posts[i].title %></div>
+
+            <div class="note-content"><%= posts[i].content %></div>
+
+            <div class="note-actions">
+              <span class="note-date">
+                <%= posts[i].date.toISOString().substring(0, 10) %>
+              </span>
+
+              <div>
+                <a
+                  href="/profile/post/edit/<%= posts[i]._id %>"
+                  class="action-btn edit-btn"
+                  >✏️ 編輯</a
+                >
+                <a
+                  href="/profile/post/delete/<%= posts[i]._id %>"
+                  class="action-btn delete-btn"
+                  onclick="return confirm('確定刪除？');"
+                  >🗑️</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %> <% if (posts.length === 0) { %>
+        <div class="col-12 text-center mt-5">
+          <h3 class="text-muted">牆上一片空白...</h3>
+          <a href="/profile/post" class="btn btn-warning btn-lg mt-3 shadow"
+            >貼上第一張便利貼！</a
+          >
+        </div>
+        <% } %>
+      </div>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include ("partials/header") %>
+    <title>貼新便利貼</title>
+    <style>
+      .color-option {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+        cursor: pointer;
+        border: 2px solid transparent;
+      }
+      input[type="radio"]:checked + .color-option {
+        border: 2px solid #333;
+        transform: scale(1.1);
+      }
+      input[type="radio"] {
+        display: none;
+      }
+
+      .bg-yellow {
+        background-color: #fdfd86;
+      }
+      .bg-blue {
+        background-color: #a6dcef;
+      }
+      .bg-green {
+        background-color: #caf0b6;
+      }
+      .bg-pink {
+        background-color: #ffccdb;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include ("partials/nav") %>
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card shadow p-4">
+            <h3 class="mb-4 fw-bold">✨ 新增便利貼</h3>
+            <%- include ("partials/message") %>
+
+            <form action="/profile/post" method="POST">
+              <div class="mb-3">
+                <label class="form-label fw-bold">標題</label>
+                <input
+                  name="title"
+                  type="text"
+                  class="form-control"
+                  placeholder="給這張便利貼一個標題..."
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">內容</label>
+                <textarea
+                  class="form-control"
+                  name="content"
+                  rows="5"
+                  placeholder="寫下你的想法..."
+                  required
+                ></textarea>
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label fw-bold d-block">選擇顏色</label>
+                <label
+                  ><input
+                    type="radio"
+                    name="color"
+                    value="yellow"
+                    checked /><span class="color-option bg-yellow"></span
+                ></label>
+                <label
+                  ><input type="radio" name="color" value="blue" /><span
+                    class="color-option bg-blue"
+                  ></span
+                ></label>
+                <label
+                  ><input type="radio" name="color" value="green" /><span
+                    class="color-option bg-green"
+                  ></span
+                ></label>
+                <label
+                  ><input type="radio" name="color" value="pink" /><span
+                    class="color-option bg-pink"
+                  ></span
+                ></label>
+              </div>
+
+              <button type="submit" class="btn btn-warning w-100 fw-bold">
+                貼上牆面 📌
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

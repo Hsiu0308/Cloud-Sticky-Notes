@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include ("partials/header") %>
+    <title>登入 - 雲端便利貼</title>
+    <style>
+      body {
+        background-color: #f8f9fa; /* 淺灰背景 */
+      }
+      .card {
+        border: none;
+        border-radius: 1rem; /* 圓角大一點比較可愛 */
+      }
+      .form-control {
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+      }
+      .form-control:focus {
+        background-color: #fff;
+        border-color: #ffc107; /* 聚焦時變黃色 */
+        box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+      }
+      .btn-google {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        color: #333;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+      .btn-google:hover {
+        background-color: #f1f1f1;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .btn-login {
+        background-color: #333;
+        color: white;
+        font-weight: bold;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        transition: all 0.2s;
+      }
+      .btn-login:hover {
+        background-color: #000;
+        transform: translateY(-2px);
+        color: #ffc107;
+      }
+      .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #6c757d;
+        margin: 1.5rem 0;
+      }
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid #dee2e6;
+      }
+      .divider::not(:empty)::before {
+        margin-right: 0.5em;
+      }
+      .divider::not(:empty)::after {
+        margin-left: 0.5em;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      nav {
+        flex-shrink: 0;
+      }
+      .main-content {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include ("partials/nav") %>
+    <div class="main-content">
+      <div class="container my-3 my-lg-5">
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg p-4">
+              <div class="card-body">
+                <div class="text-center mb-4">
+                  <h2 class="fw-bold">歡迎回來 👋</h2>
+                  <p class="text-muted">登入以存取您的便利貼</p>
+                </div>
+
+                <%- include ("partials/message") %>
+
+                <a
+                  class="btn btn-google w-100 d-flex align-items-center justify-content-center mb-3"
+                  href="/auth/google"
+                >
+                  <img
+                    src="https://img.icons8.com/color/24/000000/google-logo.png"
+                    class="me-2"
+                  />
+                  使用 Google 帳號繼續
+                </a>
+
+                <div class="divider">或是使用信箱</div>
+
+                <form action="/auth/login" method="POST">
+                  <div class="mb-3">
+                    <label for="email" class="form-label fw-bold text-secondary"
+                      >信箱地址</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      name="username"
+                      placeholder="name@example.com"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-4">
+                    <label
+                      for="password"
+                      class="form-label fw-bold text-secondary"
+                      >密碼</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      name="password"
+                      placeholder="請輸入密碼"
+                      required
+                    />
+                  </div>
+
+                  <button type="submit" class="btn btn-login w-100">
+                    進入我的牆面 🚀
+                  </button>
+                </form>
+
+                <div class="text-center mt-4">
+                  <small class="text-muted"
+                    >還沒有帳號嗎？
+                    <a
+                      href="/auth/signup"
+                      class="text-decoration-none fw-bold"
+                      style="color: #ffc107"
+                      >立即免費註冊</a
+                    ></small
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

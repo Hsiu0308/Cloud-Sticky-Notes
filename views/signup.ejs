@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include ("partials/header") %>
+    <title>註冊 - 雲端便利貼</title>
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .card {
+        border: none;
+        border-radius: 1rem;
+      }
+      .form-control {
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+      }
+      .form-control:focus {
+        background-color: #fff;
+        border-color: #ffc107;
+        box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+      }
+      .btn-signup {
+        background-color: #ffc107; /* 主題黃色 */
+        color: #333;
+        font-weight: bold;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        border: none;
+        transition: all 0.2s;
+      }
+      .btn-signup:hover {
+        background-color: #ffca2c;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      nav {
+        flex-shrink: 0;
+      }
+      .main-content {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include ("partials/nav") %>
+    <div class="main-content">
+      <div class="container my-3 my-lg-5">
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg p-4">
+              <div class="card-body">
+                <div class="text-center mb-4">
+                  <h2 class="fw-bold">加入我們 📝</h2>
+                  <p class="text-muted">建立您的第一張雲端便利貼</p>
+                </div>
+
+                <%- include ("partials/message") %>
+
+                <form action="/auth/signup" method="POST">
+                  <div class="mb-3">
+                    <label
+                      for="username"
+                      class="form-label fw-bold text-secondary"
+                      >您的名字</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="username"
+                      name="name"
+                      placeholder="例如：王小明"
+                      minlength="3"
+                      maxlength="255"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="email" class="form-label fw-bold text-secondary"
+                      >信箱地址</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      placeholder="name@example.com"
+                      required
+                    />
+                    <div class="form-text text-muted" style="font-size: 0.8rem">
+                      <i class="bi bi-shield-lock"></i>
+                      我們絕不會與他人分享您的信箱
+                    </div>
+                  </div>
+
+                  <div class="mb-4">
+                    <label
+                      for="password"
+                      class="form-label fw-bold text-secondary"
+                      >設定密碼</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      name="password"
+                      placeholder="至少 8 個字元"
+                      minlength="8"
+                      maxlength="1024"
+                      required
+                    />
+                  </div>
+
+                  <button type="submit" class="btn btn-signup w-100">
+                    立即註冊帳號 ✨
+                  </button>
+                </form>
+
+                <div class="text-center mt-4">
+                  <small class="text-muted"
+                    >已經有帳號了嗎？
+                    <a
+                      href="/auth/login"
+                      class="text-decoration-none fw-bold text-dark"
+                      >在此登入</a
+                    ></small
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
