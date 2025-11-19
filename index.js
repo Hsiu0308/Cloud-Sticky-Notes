@@ -11,13 +11,15 @@ const passport = require("passport");
 const flash = require("connect-flash");
 
 // Connect to MongoDB
+const mongoDB = process.env.MONGODB_URI || "mongodb://localhost:27017/googleDB";
+
 mongoose
-  .connect("mongodb://localhost:27017/googleDB")
+  .connect(mongoDB)
   .then(() => {
     console.log("Connected to MongoDB");
   })
-  .catch((err) => {
-    console.log(err);
+  .catch((e) => {
+    console.log(e);
   });
 
 // Middleware
@@ -55,6 +57,8 @@ app.get(/.*/, (req, res) => {
   res.status(404).render("404", { user: req.user });
 });
 
-app.listen(8080, () => {
-  console.log("Server is running on port 8080");
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}.`);
 });
