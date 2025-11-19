@@ -9,6 +9,7 @@ require("./config/passport");
 const session = require("express-session");
 const passport = require("passport");
 const flash = require("connect-flash");
+const MongoStore = require("connect-mongo");
 
 // Connect to MongoDB
 const mongoDB = process.env.MONGODB_URI || "mongodb://localhost:27017/googleDB";
@@ -31,6 +32,9 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI || "mongodb://localhost:27017/GoogleDB",
+    }),
     cookie: { secure: false },
   })
 );
