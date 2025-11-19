@@ -199,7 +199,8 @@
 
             <div class="note-actions">
               <span class="note-date">
-                <%= posts[i].date.toISOString().substring(0, 10) %>
+                <%= posts[i].date.toLocaleDateString("zh-TW", { timeZone:
+                "Asia/Taipei" }) %>
               </span>
 
               <div>
