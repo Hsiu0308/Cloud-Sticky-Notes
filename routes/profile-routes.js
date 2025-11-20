@@ -10,7 +10,7 @@ const authCheck = (req, res, next) => {
 };
 
 router.get("/", authCheck, async (req, res) => {
-  let postFound = await Post.find({ author: req.user._id });
+  let postFound = await Post.find({ author: req.user._id, group: null });
   return res.render("profile", { user: req.user, posts: postFound });
 });
 
