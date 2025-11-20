@@ -1,8 +1,8 @@
 # 📝 Cloud Sticky Notes (雲端便利貼)
 
-> 一個安全、多彩、支援 RWD 的個人雲端記事本應用程式。
+> 一個安全、多彩、支援個人與團隊協作的雲端便利貼應用程式。
 
-[![Deploy status](https://img.shields.io/badge/Deployment-Live-success?style=for-the-badge&logo=render)](https://您的-RENDER-網址.onrender.com)
+[![Deploy status](https://img.shields.io/badge/Deployment-Live-success?style=for-the-badge&logo=render)](https://cloud-sticky-notes.onrender.com)
 [![Tech Stack](https://img.shields.io/badge/Stack-MERN-blue?style=for-the-badge)]()
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)]()
 
@@ -16,6 +16,10 @@ _(註：由於使用免費雲端服務，第一次開啟可能需要等待約 30
 
 ## ✨ 功能特色 (Features)
 
+- **🤝 多人協作群組 (New!)**：
+  - 建立專屬群組牆，透過 **通行碼** 邀請朋友加入。
+  - 支援多人同時在同一面牆上張貼便利貼，即時互動。
+  - 自動清理機制：當最後一位成員離開時，群組與資料自動銷毀，不留痕跡。
 - **🎨 多彩便利貼**：支援黃、藍、綠、粉四種顏色，讓牆面更繽紛且易於分類。
 - **📱 完全響應式 (RWD)**：精心設計的介面，在手機、平板、電腦上都能完美操作。
 - **🔐 雙重登入系統**：
@@ -57,13 +61,21 @@ _(註：由於使用免費雲端服務，第一次開啟可能需要等待約 30
 
 ## 📸 畫面截圖 (Screenshots)
 
-|           首頁 (Home)           |         便利貼牆 (Wall)          |
-| :-----------------------------: | :------------------------------: |
-| ![Home Page](./images/首頁.png) | ![Profile Page](./images/牆.png) |
+|           首頁 (Home)           |          便利貼牆 (Wall)           |
+| :-----------------------------: | :--------------------------------: |
+| ![Home Page](./images/首頁.png) | ![Profile Page](./images/個人.png) |
 
-|         編輯模式 (Edit)         |        手機版介面 (Mobile)        |
-| :-----------------------------: | :-------------------------------: |
-| ![Edit Mode](./images/編輯.png) | ![Mobile View](./images/手機.png) |
+|          群組 (Group)           |     群組便利貼牆 (Group Wall)      |
+| :-----------------------------: | :--------------------------------: |
+| ![Home Page](./images/大廳.png) | ![Profile Page](./images/群組.png) |
+
+|         編輯模式 (Edit)         |
+| :-----------------------------: |
+| ![Edit Mode](./images/編輯.png) |
+
+|         手機版介面 (Mobile)         |          手機版介面 (Mobile)          |
+| :---------------------------------: | :-----------------------------------: |
+| ![Edit Mode](./images/個人手機.png) | ![Mobile View](./images/群組手機.png) |
 
 ---
 
@@ -74,7 +86,7 @@ _(註：由於使用免費雲端服務，第一次開啟可能需要等待約 30
 1.  **Clone 專案**
 
     ```bash
-    git clone [https://github.com/您的GITHUB帳號/Cloud-Sticky-Notes.git](https://github.com/您的GITHUB帳號/Cloud-Sticky-Notes.git)
+    git clone [https://github.com/Hsiu0308/Cloud-Sticky-Notes.git](https://github.com/Hsiu0308/Cloud-Sticky-Notes.git)
     cd Cloud-Sticky-Notes
     ```
 

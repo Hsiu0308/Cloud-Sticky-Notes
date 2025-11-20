@@ -10,6 +10,7 @@ const session = require("express-session");
 const passport = require("passport");
 const flash = require("connect-flash");
 const MongoStore = require("connect-mongo");
+const groupRoutes = require("./routes/group-routes");
 
 // Connect to MongoDB
 const mongoDB = process.env.MONGODB_URI || "mongodb://localhost:27017/googleDB";
@@ -54,6 +55,7 @@ app.use((req, res, next) => {
 // Routes
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
+app.use("/groups", groupRoutes);
 
 app.get("/", (req, res) => {
   return res.render("index", { user: req.user });

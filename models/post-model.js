@@ -14,9 +14,14 @@ const postSchema = new mongoose.Schema({
     default: Date.now,
   },
   author: String,
+  authorName: String,
+  group: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Group",
+  },
   color: {
     type: String,
-    default: "yellow", // 預設：黃色
+    default: "yellow",
     enum: ["yellow", "blue", "green", "pink"],
   },
 });

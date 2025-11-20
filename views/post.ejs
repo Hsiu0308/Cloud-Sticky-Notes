@@ -44,7 +44,10 @@
             <h3 class="mb-4 fw-bold">✨ 新增便利貼</h3>
             <%- include ("partials/message") %>
 
-            <form action="/profile/post" method="POST">
+            <form
+              action="<%= typeof action !== 'undefined' ? action : '/profile/post' %>"
+              method="POST"
+            >
               <div class="mb-3">
                 <label class="form-label fw-bold">標題</label>
                 <input
