@@ -4,17 +4,16 @@
     <%- include ("partials/header") %>
     <title>雲端便利貼 - 首頁</title>
     <style>
-      /* 讓首頁的背景有點層次感 */
       .hero-section {
-        background-color: #f8f9fa; /* 淺灰背景 */
-        border-bottom: 5px solid #fdfd86; /* 底部加一條便利貼黃色的線 */
+        background-color: #f8f9fa;
+        border-bottom: 5px solid #fdfd86;
       }
       .feature-icon {
         font-size: 3rem;
         margin-bottom: 1rem;
       }
       .btn-cta {
-        background-color: #ffc107; /* 醒目的黃色 */
+        background-color: #ffc107;
         color: #333;
         font-weight: bold;
         border: none;
@@ -23,8 +22,14 @@
       }
       .btn-cta:hover {
         background-color: #ffca2c;
-        transform: scale(1.05); /* 滑鼠移上去稍微放大 */
+        transform: scale(1.05);
         color: #000;
+      }
+      .story-text {
+        line-height: 1.8;
+        text-align: left;
+        display: inline-block;
+        max-width: 600px;
       }
     </style>
   </head>
@@ -33,23 +38,35 @@
 
     <div class="hero-section p-4 p-lg-5 mb-4 rounded-3 text-center">
       <div class="container-fluid py-3 py-lg-5">
-        <div style="font-size: 4rem; margin-bottom: 1rem">📝✨</div>
+        <div style="font-size: 4rem; margin-bottom: 1rem">🏠 💼</div>
 
-        <h1 class="fs-1 display-lg-4 fw-bold text-dark">
-          您的個人與團隊便利貼牆
+        <h1 class="fs-1 display-lg-4 fw-bold text-dark mb-4">
+          從冰箱留言，到團隊看板
         </h1>
-        <p class="col-md-8 fs-5 fs-lg-4 mx-auto text-muted mt-3">
-          不再擔心靈感溜走。無論是個人的待辦事項，還是團隊的腦力激盪，
-          這裡都是您最直覺、最自由的思緒空間。
-        </p>
-        <div class="mt-4">
+
+        <div class="story-text fs-5 fs-lg-4 text-muted mx-auto">
+          <p>
+            <strong class="text-dark">🏠 在家裡，它是溫馨的冰箱門：</strong
+            ><br />
+            當家人的作息錯開，一張磁鐵便利貼，就是我們傳遞關心與叮嚀的唯一方式。
+          </p>
+          <p class="mt-4">
+            <strong class="text-dark">💼 在公司，它是專業的軟木塞板：</strong
+            ><br />
+            當團隊需要腦力激盪，幾顆圖釘與便條紙，就能讓零散的靈感匯聚成偉大的計畫。
+          </p>
+          <p class="mt-4 text-center fst-italic">
+            切換不同模式，記錄屬於您的每個重要時刻。
+          </p>
+        </div>
+        <div class="mt-5">
           <% if (!user) { %>
           <a
             class="btn btn-cta btn-lg shadow-sm"
             href="/auth/signup"
             role="button"
           >
-            立即免費註冊 🚀
+            立即免費體驗 🚀
           </a>
           <div class="mt-3 text-muted">
             <small>或是 <a href="/auth/login">登入帳號</a></small>
@@ -57,7 +74,7 @@
           <% } else { %>
           <p class="fs-5 text-success">歡迎回來，<%= user.name %>！</p>
           <a class="btn btn-cta btn-lg shadow-sm" href="/profile" role="button">
-            前往我的便利貼牆 🏃‍♂️
+            前往我的牆面 🏃‍♂️
           </a>
           <% } %>
         </div>
@@ -70,10 +87,10 @@
           <div
             class="h-100 p-4 bg-white border rounded-3 shadow-sm text-center"
           >
-            <div class="feature-icon">☁️</div>
-            <h2>雲端同步</h2>
+            <div class="feature-icon">🎨</div>
+            <h2>場景切換</h2>
             <p>
-              您的所有筆記都安全地儲存在雲端。無論換電腦還是用手機，隨時隨地都能存取您的重要內容。
+              內建「溫馨家庭」與「專業工作」兩種主題。無論是冰箱上的磁鐵，還是白板上的圖釘，都能完美呈現。
             </p>
           </div>
         </div>
@@ -85,19 +102,19 @@
             <div class="feature-icon">🤝</div>
             <h2>多人協作</h2>
             <p>
-              建立群組並分享通行碼，邀請朋友或同事加入。大家可以在同一個牆面上即時貼文，腦力激盪超方便！
+              建立群組並分享通行碼，邀請家人或同事加入。大家可以在同一個牆面上即時貼文，溝通零距離！
             </p>
           </div>
         </div>
+
         <div class="col-md-4 mb-3">
           <div
             class="h-100 p-4 bg-white border rounded-3 shadow-sm text-center"
           >
-            <div class="feature-icon">🔒</div>
-            <h2>隱私保護</h2>
+            <div class="feature-icon">☁️</div>
+            <h2>雲端同步</h2>
             <p>
-              支援 Google
-              快速登入與本地帳號加密保護。除了您自己與群組成員，沒有人能看見您的內容。
+              您的所有筆記都安全地儲存在雲端。無論換電腦還是用手機，隨時隨地都能存取您的重要內容。
             </p>
           </div>
         </div>

@@ -26,6 +26,11 @@ const groupSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  theme: {
+    type: String,
+    default: "family",
+    enum: ["family", "work"],
+  },
 });
 
 module.exports = mongoose.model("Group", groupSchema);

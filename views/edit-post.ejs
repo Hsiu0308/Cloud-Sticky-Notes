@@ -45,7 +45,10 @@
             <h3 class="mb-4 fw-bold">✏️ 編輯便利貼</h3>
             <%- include ("partials/message") %>
 
-            <form action="/profile/post/edit/<%= post._id %>" method="POST">
+            <form
+              action="<%= typeof action !== 'undefined' ? action : '/profile/post/edit/' + post._id %>"
+              method="POST"
+            >
               <div class="mb-3">
                 <label class="form-label fw-bold">標題</label>
                 <input
@@ -96,7 +99,11 @@
                 <button type="submit" class="btn btn-primary btn-lg">
                   儲存修改 ✨
                 </button>
-                <a href="/profile" class="btn btn-outline-secondary">取消</a>
+                <a
+                  href="<%= typeof backURL !== 'undefined' ? backURL : '/profile' %>"
+                  class="btn btn-outline-secondary"
+                  >取消</a
+                >
               </div>
             </form>
           </div>

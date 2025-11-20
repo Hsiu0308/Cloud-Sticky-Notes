@@ -5,16 +5,16 @@
     <title><%= group.title %> - 牆面</title>
     <style>
       body {
-        background-color: #e9ecef;
+        min-height: 100vh;
+        transition: background 0.3s;
       }
 
-      /* 群組資訊卡片 */
       section.group-info {
         background-color: white;
         padding: 1.5rem;
         margin-bottom: 2rem;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        border-radius: 0.5rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border-radius: 0.8rem;
       }
       .group-header-container {
         display: flex;
@@ -41,59 +41,69 @@
         }
       }
 
-      /* --- 便利貼樣式 --- */
       .sticky-note {
-        background-color: #fdfd86;
         width: 100%;
-        min-height: 220px;
-        padding: 1.2rem;
+        min-height: 250px;
+        padding: 1.5rem 1.2rem;
         position: relative;
-        box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.2);
         font-family: "Comic Sans MS", "Chalkboard SE", sans-serif;
-        transition: transform 0.15s linear; /* 設定動畫時間 */
-
-        /* 預設狀態 (奇數)：向左歪 */
-        transform: rotate(-1deg);
+        transition: transform 0.2s ease;
       }
-
-      /* 偶數狀態：向右歪 */
-      div[class*="col-"]:nth-child(even) .sticky-note {
-        transform: rotate(1deg);
-        position: relative;
-        top: 5px;
+      .note-title {
+        font-weight: bold;
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+        border-bottom: 2px dashed rgba(0, 0, 0, 0.1);
+        padding-bottom: 0.5rem;
+        color: #333;
       }
-
-      /* --- ▼▼▼ 修正重點：分別設定 Hover 效果 ▼▼▼ --- */
-
-      /* 1. 奇數張 Hover：放大 1.05 倍，並保持左歪 */
-      div[class*="col-"] .sticky-note:hover {
-        transform: scale(1.05) rotate(-1deg);
-        box-shadow: 10px 10px 15px rgba(33, 33, 33, 0.3); /* 陰影加深 */
-        z-index: 10;
-        cursor: pointer;
+      .note-author {
+        font-size: 0.85rem;
+        color: #666;
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
       }
-
-      /* 2. 偶數張 Hover：放大 1.05 倍，並保持右歪 */
-      div[class*="col-"]:nth-child(even) .sticky-note:hover {
-        transform: scale(1.05) rotate(1deg);
+      .note-content {
+        white-space: pre-wrap;
+        height: 100px;
+        overflow-y: auto;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        color: #555;
       }
-
-      /* --- ▲▲▲ 修正結束 ▲▲▲ --- */
-
-      /* 手機版 RWD：強制轉正，取消歪斜 */
-      @media (max-width: 768px) {
-        .sticky-note {
-          transform: rotate(0deg) !important;
-        }
-        div[class*="col-"]:nth-child(even) .sticky-note {
-          transform: rotate(0deg) !important;
-          top: 0;
-        }
-        /* 手機版 Hover：只放大，不旋轉 */
-        div[class*="col-"] .sticky-note:hover,
-        div[class*="col-"]:nth-child(even) .sticky-note:hover {
-          transform: scale(1.02) rotate(0deg);
-        }
+      .note-actions {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        left: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+      .note-date {
+        font-size: 0.8rem;
+        color: #888;
+      }
+      .action-btn {
+        font-size: 0.9rem;
+        text-decoration: none;
+        padding: 2px 8px;
+        border-radius: 4px;
+        transition: 0.2s;
+      }
+      .edit-btn {
+        color: #555;
+      }
+      .edit-btn:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        color: #000;
+      }
+      .delete-btn {
+        color: #d9534f;
+      }
+      .delete-btn:hover {
+        background-color: rgba(217, 83, 79, 0.1);
       }
 
       .sticky-note.yellow {
@@ -109,22 +119,122 @@
         background-color: #ffccdb;
       }
 
-      .note-author {
-        font-size: 0.85rem;
-        color: #666;
-        font-weight: bold;
-        margin-bottom: 5px;
-        display: block;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      /* =========================================
+         🏠 主題 A：溫馨家庭 (冰箱磁鐵風格) - theme-family
+         ========================================= */
+      body.theme-family {
+        background-color: #f0f2f5;
+        background-image: radial-gradient(#dfe3e8 1px, transparent 0);
+        background-size: 20px 20px;
       }
-      .note-content {
-        white-space: pre-wrap;
-        height: 100px;
-        overflow-y: auto;
+
+      .theme-family .sticky-note::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 20px;
+        background: radial-gradient(
+          circle at 30% 30%,
+          #ff6b6b,
+          #c92a2a
+        ); /* 紅色磁鐵 */
+        border-radius: 50%;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        z-index: 20;
+      }
+
+      /* 偶數張換黑色磁鐵 */
+      .theme-family div[class*="col-"]:nth-child(even) .sticky-note::before {
+        background: radial-gradient(circle at 30% 30%, #495057, #212529);
+      }
+
+      .theme-family .sticky-note {
+        transform: rotate(-2deg);
+        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.15);
+      }
+      .theme-family div[class*="col-"]:nth-child(even) .sticky-note {
+        transform: rotate(2deg);
+        top: 6px;
+      }
+      .theme-family .sticky-note:hover {
+        transform: scale(1.05) rotate(0deg) !important;
+        z-index: 100;
+        box-shadow: 10px 15px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      /* =========================================
+         💼 主題 B：專業工作 (白板圖釘風格) - theme-work
+         ========================================= */
+      body.theme-work {
+        background-color: #e6ccb2; /* 軟木塞底色 */
+        background-image: url("https://www.transparenttextures.com/patterns/cork-board.png");
+      }
+
+      body.theme-work nav {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        position: relative;
+        z-index: 1000;
+      }
+
+      body.theme-work section.group-info {
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        border: 1px solid #d4a373;
+      }
+
+      .theme-work .sticky-note::before {
+        content: "";
+        position: absolute;
+        top: -14px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+
+        /* 立體紅色大頭針 */
+        background: radial-gradient(circle at 25% 25%, #ff7f7f, #cc0000);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.4),
+          inset 0 2px 5px rgba(255, 255, 255, 0.3);
+        z-index: 20;
+      }
+
+      /* 偶數便利貼換藍色圖釘 */
+      .theme-work div[class*="col-"]:nth-child(even) .sticky-note::before {
+        /* 立體藍色大頭針 */
+        background: radial-gradient(
+          circle at 25% 25%,
+          #87ceeb,
+          #0000cd
+        ); /* 藍色漸層 */
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.4),
+          inset 0 2px 5px rgba(255, 255, 255, 0.3);
+      }
+
+      .theme-work .sticky-note {
+        transform: rotate(0deg);
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+        border-radius: 2px;
+      }
+
+      .theme-work .sticky-note:hover {
+        transform: scale(1.02);
+        box-shadow: 5px 8px 12px rgba(0, 0, 0, 0.25);
+        z-index: 100;
+      }
+
+      @media (max-width: 768px) {
+        .theme-work .sticky-note {
+          transform: rotate(0deg) !important;
+        }
       }
     </style>
   </head>
-  <body>
+
+  <body class="theme-<%= group.theme || 'family' %>">
     <%- include ("partials/nav") %>
 
     <div class="container mt-4">
@@ -132,12 +242,19 @@
         <div class="group-header-container">
           <img
             class="group-avatar"
-            src="https://cdn.pixabay.com/photo/2016/11/14/17/39/group-1824145_1280.png"
+            src="<%= group.theme === 'work' ? 'https://cdn.pixabay.com/photo/2017/06/10/07/18/list-2389219_1280.png' : 'https://cdn.pixabay.com/photo/2016/11/14/17/39/group-1824145_1280.png' %>"
             alt="Group Icon"
           />
 
           <div class="flex-grow-1">
-            <h2 class="mb-0"><%= group.title %> 的群組牆</h2>
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <h2 class="mb-0 fw-bold"><%= group.title %></h2>
+              <span
+                class="badge rounded-pill <%= group.theme === 'work' ? 'bg-primary' : 'bg-success' %>"
+              >
+                <%= group.theme === 'work' ? '💼 工作區' : '🏠 家庭' %>
+              </span>
+            </div>
             <small class="text-muted">
               通行碼：<span class="badge bg-light text-dark border"
                 ><%= group.passcode %></span
@@ -150,9 +267,8 @@
             <a
               href="/groups/<%= group._id %>/post"
               class="btn btn-warning fw-bold shadow-sm"
+              >✏️ 貼新便利貼</a
             >
-              ✏️ 貼新便利貼
-            </a>
             <a href="/groups" class="btn btn-outline-secondary">回大廳</a>
           </div>
         </div>
@@ -162,15 +278,46 @@
         <% posts.forEach(post => { %>
         <div class="col-12 col-sm-6 col-lg-3 mb-4">
           <div class="sticky-note <%= post.color || 'yellow' %>">
-            <span class="note-author"
-              >👤 <%= post.authorName || '某位成員' %></span
-            >
-            <div class="fw-bold fs-5 mt-1"><%= post.title %></div>
-            <div class="note-content mt-2"><%= post.content %></div>
-            <small class="text-muted position-absolute bottom-0 end-0 p-3">
-              <%= post.date.toLocaleDateString("zh-TW", { timeZone:
-              "Asia/Taipei" }) %>
-            </small>
+            <span class="note-author">👤 <%= post.authorName || '成員' %></span>
+            <div class="note-title"><%= post.title %></div>
+
+            <div class="note-content"><%= post.content %></div>
+
+            <div class="note-actions">
+              <span class="note-date">
+                <% if (group.theme === 'family') { %> <% const hours = new
+                Date(post.date).getUTCHours() + 8; const localHours = hours >=
+                24 ? hours - 24 : hours; let timeGreeting = ""; if(localHours <
+                5) timeGreeting = "🌙 深夜"; else if(localHours < 11)
+                timeGreeting = "☀️ 早安"; else if(localHours < 14) timeGreeting
+                = "🍱 午安"; else if(localHours < 18) timeGreeting = "☕️ 午後";
+                else timeGreeting = "🏠 晚安"; %>
+                <small
+                  class="fw-bold text-secondary"
+                  style="font-size: 0.8em; display: block"
+                >
+                  <%= timeGreeting %>
+                </small>
+                <% } %> <%= post.date.toLocaleDateString("zh-TW", { timeZone:
+                "Asia/Taipei" }) %>
+              </span>
+
+              <% if (post.author === user._id.toString()) { %>
+              <div>
+                <a
+                  href="/groups/<%= group._id %>/post/edit/<%= post._id %>"
+                  class="action-btn edit-btn"
+                  >✏️ 編輯</a
+                >
+                <a
+                  href="/groups/<%= group._id %>/post/delete/<%= post._id %>"
+                  class="action-btn delete-btn"
+                  onclick="return confirm('確定刪除？')"
+                  >🗑️</a
+                >
+              </div>
+              <% } %>
+            </div>
           </div>
         </div>
         <% }) %> <% if (posts.length === 0) { %>

@@ -25,7 +25,7 @@
                     required
                   />
                 </div>
-                <div class="mb-3">
+                <div class="mb-2">
                   <input
                     name="passcode"
                     type="text"
@@ -33,6 +33,16 @@
                     placeholder="設定通行碼 (例: team001)"
                     required
                   />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label text-muted small"
+                    >選擇場景風格</label
+                  >
+                  <select name="theme" class="form-select">
+                    <option value="family">🏠 溫馨家庭 (冰箱磁鐵)</option>
+                    <option value="work">💼 專業工作 (軟木塞看板)</option>
+                  </select>
                 </div>
                 <button class="btn btn-primary w-100">建立群組</button>
               </form>
@@ -75,14 +85,23 @@
                 <div class="card-body d-flex flex-column">
                   <div class="d-flex justify-content-between align-items-start">
                     <h3 class="fw-bold text-dark"><%= group.title %></h3>
+                    <span
+                      class="badge <%= group.theme === 'work' ? 'bg-primary' : 'bg-success' %>"
+                    >
+                      <%= group.theme === 'work' ? '工作' : '家庭' %>
+                    </span>
+                  </div>
+
+                  <div class="mt-1 mb-2">
                     <span class="badge bg-secondary"
                       >Code: <%= group.passcode %></span
                     >
                   </div>
-                  <p class="text-muted mt-2">
+
+                  <p class="text-muted mt-auto">
                     成員數: <%= group.members.length %> 人
                   </p>
-                  <div class="mt-auto d-flex gap-2">
+                  <div class="mt-3 d-flex gap-2">
                     <a
                       href="/groups/<%= group._id %>"
                       class="btn btn-warning fw-bold flex-grow-1"

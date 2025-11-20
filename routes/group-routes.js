@@ -20,9 +20,8 @@ router.get("/", authCheck, async (req, res) => {
 
 // 建立新群組
 router.post("/create", authCheck, async (req, res) => {
-  let { title, passcode } = req.body;
+  let { title, passcode, theme } = req.body; // ▼ 接收 theme
   try {
-    // 檢查代碼是否重複
     let foundGroup = await Group.findOne({ passcode });
     if (foundGroup) {
       req.flash("error_msg", "此通行碼已被使用，請換一個");
@@ -32,6 +31,7 @@ router.post("/create", authCheck, async (req, res) => {
     let newGroup = new Group({
       title,
       passcode,
+      theme, // ▼ 存入資料庫
       creator: req.user._id,
       members: [req.user._id],
     });
@@ -147,6 +147,62 @@ router.get("/:id/leave", authCheck, async (req, res) => {
   } catch (e) {
     console.log(e);
     return res.redirect("/groups");
+  }
+});
+
+// 編輯群組貼文 (顯示頁面)
+router.get("/:groupId/post/edit/:postId", authCheck, async (req, res) => {
+  let { groupId, postId } = req.params;
+  try {
+    let post = await Post.findOne({ _id: postId });
+    // 只有作者本人可以編輯
+    if (post && post.author === req.user._id.toString()) {
+      return res.render("edit-post", {
+        user: req.user,
+        post,
+        action: `/groups/${groupId}/post/edit/${postId}`, // 告訴表單：改完送回這裡
+        backURL: `/groups/${groupId}`,
+      });
+    }
+    return res.redirect(`/groups/${groupId}`);
+  } catch (e) {
+    return res.redirect(`/groups/${groupId}`);
+  }
+});
+
+// 編輯群組貼文 (處理更新)
+router.post("/:groupId/post/edit/:postId", authCheck, async (req, res) => {
+  let { groupId, postId } = req.params;
+  let { title, content, color } = req.body;
+  try {
+    await Post.findOneAndUpdate(
+      { _id: postId, author: req.user._id }, // 確保是本人
+      { title, content, color },
+      { new: true, runValidators: true }
+    );
+    return res.redirect(`/groups/${groupId}`);
+  } catch (e) {
+    return res.redirect(`/groups/${groupId}`);
+  }
+});
+
+// 刪除群組貼文
+router.get("/:groupId/post/delete/:postId", authCheck, async (req, res) => {
+  let { groupId, postId } = req.params;
+  try {
+    let post = await Post.findOne({ _id: postId });
+    let group = await Group.findById(groupId);
+
+    if (
+      post &&
+      (post.author === req.user._id.toString() ||
+        group.creator.toString() === req.user._id.toString())
+    ) {
+      await Post.deleteOne({ _id: postId });
+    }
+    return res.redirect(`/groups/${groupId}`);
+  } catch (e) {
+    return res.redirect(`/groups/${groupId}`);
   }
 });
 
